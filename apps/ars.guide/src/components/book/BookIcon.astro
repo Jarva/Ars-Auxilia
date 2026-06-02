@@ -11,7 +11,7 @@ interface Props {
 const { icon, iconUrl } = Astro.props;
 const namespace = getNamespace(icon, "minecraft");
 const path = getPath(icon);
-const src = iconUrl ?? getItemRenderUrl(icon);
+const src = iconUrl ?? getItemRenderUrl(icon)!;
 const tooltipTitle = `${toTitleCase(namespace)} – ${toTitleCase(path)}`;
 ---
 
