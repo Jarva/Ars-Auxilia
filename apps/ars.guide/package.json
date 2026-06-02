@@ -43,6 +43,7 @@
     "core-js": "^3.49.0",
     "github-slugger": "^2.0.0",
     "memoize": "^11.0.0",
+    "node-gyp": "^12.3.0",
     "pako": "^2.1.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
