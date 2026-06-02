@@ -78,7 +78,7 @@ export default defineConfig({
       BETTER_AUTH_URL: envField.string({
         context: "server",
         access: "public",
-        default: "http://localhost:4321",
+        default: "https://ars.guide",
       }),
       DISCORD_CLIENT_ID: envField.string({
         context: "server",
