@@ -7,7 +7,7 @@ import Submission from "../../components/spells/Submission.astro";
 import { getCategories } from "../../utils/spell-data/categories";
 import { getSubmissionsFromCategory } from "../../utils/spell-data/category";
 import type { Submission as TSubmission } from "../../utils/spell-data/spells";
-import { getHeadings, getPublicSlug, getSidebar } from "../../utils/sidebar";
+import { getEditPath, getHeadings, getPublicSlug, getSidebar } from "../../utils/sidebar";
 import { toTitleCase } from "../../utils/text";
 
 interface ContentProps {
@@ -62,7 +62,7 @@ const sidebar = await getSidebar("spells", slug as string);
         const formattedHeadings = getHeadings(headings);
         return (
           <DocsLayout
-            editPath={`/content/${props.entry.collection}/${props.entry.id}`}
+            editPath={getEditPath(props.entry)}
             collection={props.entry.collection}
             slug={slug as string}
             headings={formattedHeadings}

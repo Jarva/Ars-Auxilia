@@ -218,6 +218,18 @@ export const getHeadings = (headings: MarkdownHeading[]) => {
   }, []);
 };
 
+export const getEditPath = (entry: GenericCollectionEntry): string => {
+  const sourcePath = entry.filePath ?? entry.id;
+  const marker = "content/";
+  const idx = sourcePath.indexOf(marker);
+
+  if (idx >= 0) {
+    return sourcePath.slice(idx);
+  }
+
+  return `content/${entry.collection}/${entry.id}`;
+};
+
 export const getTopLevel = (entry: GenericCollectionEntry) => {
   const publicSlug = getPublicSlug(entry);
   return publicSlug.split("/")[0];
