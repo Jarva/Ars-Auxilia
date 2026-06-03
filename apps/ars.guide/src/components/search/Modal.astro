@@ -95,6 +95,17 @@
         }
     }
 
+    searchForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const selected = searchResultSelected ?? searchResults.querySelector('article');
+        const link = selected?.querySelector('a') as HTMLAnchorElement | null;
+
+        if (link?.href) {
+            window.location.href = link.href;
+        }
+    });
+
     document.addEventListener('keydown', onKeyDownHandler)
 
     document.addEventListener('click', event => {
