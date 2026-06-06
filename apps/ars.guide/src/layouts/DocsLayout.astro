@@ -64,6 +64,12 @@ const showOlderVersionBanner = showVersionSelect && version !== latestVersion;
                 </div>
                 <nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
                   <div class="page-links">
+                    <div class="docs-banner-callout" data-pagefind-ignore="all">
+                      <a href="https://jarva.bloom.host/" class="docs-banner-link" target="_blank" rel="noopener noreferrer">
+                        <img src={banner.src} alt="Bloom Host" class="docs-banner" />
+                        <span class="docs-banner-text">Use code <strong>Jarva</strong> for 25% off your first invoice</span>
+                      </a>
+                    </div>
                     {formattedHeadings.length > 0 && <>
                       <h3>On this page</h3>
                       <nav id="toc">
@@ -75,7 +81,7 @@ const showOlderVersionBanner = showVersionSelect && version !== latestVersion;
                   </div>
                 </nav>
                 <main class="docs-content col-lg-11 col-xl-9" data-pagefind-body>
-                    <div class="docs-banner-callout" data-pagefind-ignore="all">
+                    <div class="docs-banner-callout d-xl-none" data-pagefind-ignore="all">
                       <a href="https://jarva.bloom.host/" class="docs-banner-link" target="_blank" rel="noopener noreferrer">
                         <img src={banner.src} alt="Bloom Host" class="docs-banner" />
                         <span class="docs-banner-text">Use code <strong>Jarva</strong> for 25% off your first invoice</span>
