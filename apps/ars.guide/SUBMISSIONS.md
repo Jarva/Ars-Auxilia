@@ -19,7 +19,7 @@ pnpm --filter @ars/guide exec wrangler secret put DISCORD_CLIENT_SECRET
 
 ## GitHub App
 
-Create and install a GitHub App on `Jarva/Ars-Auxilia` with these repository permissions:
+Create and install a GitHub App on `Ars-Nouveau/Ars-Auxilia` with these repository permissions:
 
 - Contents: Read and write
 - Pull requests: Read and write
@@ -38,7 +38,7 @@ pnpm --filter @ars/guide exec wrangler secret put GITHUB_APP_PRIVATE_KEY
 Non-secret defaults live in `wrangler.jsonc`:
 
 - `BETTER_AUTH_URL=https://ars.guide`
-- `GITHUB_OWNER=Jarva`
+- `GITHUB_OWNER=Ars-Nouveau`
 - `GITHUB_REPO=Ars-Auxilia`
 - `GITHUB_BASE_BRANCH=main`
 

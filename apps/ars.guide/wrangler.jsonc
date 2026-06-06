@@ -15,7 +15,7 @@
   },
   "vars": {
     "BETTER_AUTH_URL": "https://ars.guide",
-    "GITHUB_OWNER": "Jarva",
+    "GITHUB_OWNER": "Ars-Nouveau",
     "GITHUB_REPO": "Ars-Auxilia",
     "GITHUB_BASE_BRANCH": "main"
   },

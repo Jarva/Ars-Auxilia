@@ -51,7 +51,7 @@ const getShortTimestamp = () =>
     .slice(0, 14);
 
 const getTarget = (env: GuideEnv) => ({
-  owner: env.GITHUB_OWNER || "Jarva",
+  owner: env.GITHUB_OWNER || "Ars-Nouveau",
   repo: env.GITHUB_REPO || "Ars-Auxilia",
   baseBranch: env.GITHUB_BASE_BRANCH || "main",
 });

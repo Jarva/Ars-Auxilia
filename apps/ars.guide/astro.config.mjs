@@ -101,7 +101,7 @@ export default defineConfig({
       GITHUB_OWNER: envField.string({
         context: "server",
         access: "public",
-        default: "Jarva",
+        default: "Ars-Nouveau",
       }),
       GITHUB_REPO: envField.string({
         context: "server",

@@ -39,6 +39,6 @@ export const SocialItems = [
   {
     label: "GitHub",
     icon: IconBrandGithub,
-    link: "https://github.com/Jarva/Ars-Auxilia",
+    link: "https://github.com/Ars-Nouveau/Ars-Auxilia",
   },
 ];
