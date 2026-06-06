@@ -16,9 +16,10 @@ import Sidebar from "../navigation/Sidebar.astro";
 interface Props {
   active?: string;
   sidebar?: SidebarType;
+  namespacesJson?: string;
 }
 
-const { active, sidebar } = Astro.props;
+const { active, sidebar, namespacesJson } = Astro.props;
 const activeNavItem = NavItems.find((item) => item.collection === active);
 ---
 
@@ -50,7 +51,7 @@ const activeNavItem = NavItems.find((item) => item.collection === active);
                                 <div class="d-lg-none ms-3 mt-2">
                                     <aside class="doks-sidebar">
                                         <nav id="doks-docs-nav" aria-label="Tertiary navigation">
-                                            <Sidebar sidebar={sidebar} />
+                                            <Sidebar sidebar={sidebar} collection={active} namespaces={namespacesJson} />
                                         </nav>
                                     </aside>
                                 </div>

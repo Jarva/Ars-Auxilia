@@ -1,6 +1,14 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 import type { ParentSection, Sidebar, SidebarEntry } from "./sidebar";
 
+export interface BookSidebarEntry extends SidebarEntry {
+  namespace?: string;
+}
+
+export type BookSidebar = (ParentSection & {
+  children: BookSidebarEntry[];
+})[];
+
 export type BookCollectionEntry = CollectionEntry<"book">;
 export type BookCategoryEntry = BookCollectionEntry & {
   data: Extract<BookCollectionEntry["data"], { type: "category" }>;
@@ -170,12 +178,13 @@ export const getBookCategoryEntries = async (categoryId: string) => {
 const toPageSidebarEntry = (
   entry: BookPageEntry,
   currentSlug: string,
-): SidebarEntry => ({
+): BookSidebarEntry => ({
   id: entry.data.slug,
   title: entry.data.title,
   href: getBookHref(entry),
   weight: entry.data.order,
   active: entry.data.slug === currentSlug,
+  namespace: entry.data.namespace,
 });
 
 const hasActiveChild = (entry: SidebarEntry): boolean =>
@@ -303,6 +312,26 @@ export const getBookSidebar = async (currentSlug = ""): Promise<Sidebar> => {
       children: uncategorizedEntries,
     },
   ];
+};
+
+const collectNamespaces = (
+  entries: SidebarEntry[],
+  result: Set<string>,
+): void => {
+  for (const entry of entries) {
+    if ("namespace" in entry && typeof entry.namespace === "string") {
+      result.add(entry.namespace);
+    }
+    if (entry.children?.length) {
+      collectNamespaces(entry.children, result);
+    }
+  }
+};
+
+export const getBookNamespaces = (sidebar: Sidebar): string[] => {
+  const namespaces = new Set<string>();
+  collectNamespaces(sidebar, namespaces);
+  return [...namespaces];
 };
 
 export const getFirstBookEntry = async () => {

@@ -1,10 +1,12 @@
 ---
+import { getEntry } from "astro:content";
 import { IconArrowLeft, IconArrowRight, IconPencil } from "@tabler/icons-react";
 import banner from "../../assets/banner.gif";
 import Seo from "../components/layout/Seo.astro";
 import Heading from "../components/navigation/Heading.astro";
 import Sidebar from "../components/navigation/Sidebar.astro";
 import VersionSelect from "../components/navigation/VersionSelect.astro";
+import { getBookNamespaces } from "../utils/book";
 import { editLink } from "../utils/constants";
 import {
   getNextEntry,
@@ -48,9 +50,23 @@ const prev = getPreviousEntry(slug, sidebar);
 const next = getNextEntry(slug, sidebar);
 const showVersionSelect = version && isVersionedCollection(collection);
 const showOlderVersionBanner = showVersionSelect && version !== latestVersion;
+
+let namespacesJson: string | undefined;
+if (collection === "book") {
+  const presentIds = getBookNamespaces(sidebar);
+  const nsEntry = await getEntry("namespaces", "namespaces");
+  if (nsEntry && presentIds.length > 1) {
+    const registry = nsEntry.data as Record<string, { text: string; color: string }>;
+    const pinnedIds = new Set(["ars_nouveau", "minecraft"]);
+    const filtered = presentIds
+      .filter((id) => id in registry)
+      .map((id) => ({ id, ...registry[id], pinned: pinnedIds.has(id) }));
+    namespacesJson = JSON.stringify(filtered);
+  }
+}
 ---
 
-<BaseLayout layout="section docs" sidebar={sidebar} collection={collection}>
+<BaseLayout layout="section docs" sidebar={sidebar} collection={collection} namespacesJson={namespacesJson}>
   <Fragment slot="head">
     <Seo title={title} description={description} path={path} />
   </Fragment>
@@ -59,7 +75,7 @@ const showOlderVersionBanner = showVersionSelect && version !== latestVersion;
             <div class="row flex-xl-nowrap">
                 <div class="col-lg-5 col-xl-4 docs-sidebar d-none d-lg-block">
                     <nav class="docs-links" aria-label="Main navigation">
-                        <Sidebar sidebar={sidebar}>
+                        <Sidebar sidebar={sidebar} collection={collection} namespaces={namespacesJson}>
                     </nav>
                 </div>
                 <nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation">

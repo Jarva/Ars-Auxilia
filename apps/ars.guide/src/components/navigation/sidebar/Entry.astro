@@ -8,9 +8,10 @@ interface Props {
 const { entry } = Astro.props;
 
 const { title, href, active, children = [] } = entry;
+const namespace = (entry as SidebarEntry & { namespace?: string }).namespace;
 ---
 
-<li>
+<li {...namespace ? { "data-namespace": namespace } : {}}>
     <a href={href} class={`docs-link rounded${active ? ' active' : ''}`}>{title}</a>
     {children.length > 0 && (
         <ul class="btn-toggle-nav list-unstyled fw-normal ps-3">

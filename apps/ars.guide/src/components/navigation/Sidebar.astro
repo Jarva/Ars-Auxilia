@@ -4,11 +4,38 @@ import Section from "./sidebar/Section.astro";
 
 interface Props {
   sidebar: Sidebar;
+  collection?: string;
+  namespaces?: string;
 }
 
-const { sidebar } = Astro.props;
+const { sidebar, collection, namespaces } = Astro.props;
+const showFilter = collection === "book" && namespaces;
 ---
+
+{showFilter && (
+  <div class="sidebar-ns-filter" data-namespaces={namespaces}>
+  </div>
+  <script is:inline data-ns-fouc>
+    (function() {
+      try {
+        var raw = localStorage.getItem('ars-guide:ns-filter');
+        if (!raw) return;
+        var state = JSON.parse(raw);
+        var disabled = Object.keys(state).filter(function(k) { return !state[k]; });
+        if (!disabled.length) return;
+        var style = document.createElement('style');
+        style.setAttribute('data-ns-fouc-style', '');
+        style.textContent = disabled.map(function(ns) {
+          return '[data-namespace="' + ns + '"]';
+        }).join(',') + '{display:none!important}';
+        document.head.appendChild(style);
+      } catch(e) {}
+    })();
+  </script>
+)}
 
 <ul class="list-unstyled collapsible-sidebar">
     {sidebar.map(section => <Section parent={section} />)}
 </ul>
+
+{showFilter && <script>import "../../scripts/sidebar-filter.ts";</script>}

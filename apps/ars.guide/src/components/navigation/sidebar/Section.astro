@@ -11,7 +11,7 @@ const { title } = parent;
 const sectionId = `section-${parent.id.replace(/[^a-z0-9_-]/gi, "-")}`;
 ---
 
-<li class="mb-1">
+<li class="mb-1" data-sidebar-section>
     <button class=`btn btn-toggle align-items-center rounded ${!parent.active ? ' collapsed' : ''}` data-bs-toggle="collapse" data-bs-target={`#${sectionId}`} aria-expanded={parent.active}>
         {title}
     </button>

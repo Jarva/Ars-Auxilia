@@ -3,7 +3,7 @@ import Footer from "../components/layout/Footer.astro";
 import Navbar from "../components/layout/Navbar.astro";
 import SearchModal from "../components/search/Modal.astro";
 
-const { layout, collection, sidebar } = Astro.props;
+const { layout, collection, sidebar, namespacesJson } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ const { layout, collection, sidebar } = Astro.props;
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" />
   </head>
   <body class={`single ${layout}`} data-bs-spy="scroll" data-bs-target="#toc" data-bs-root-margin="0px 0px -60%" data-bs-smooth-scroll="true">
-    <Navbar active={collection} sidebar={sidebar} />
+    <Navbar active={collection} sidebar={sidebar} namespacesJson={namespacesJson} />
     <SearchModal />
     <slot />
     <Footer />

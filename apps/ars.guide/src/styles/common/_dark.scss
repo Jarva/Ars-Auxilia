@@ -342,6 +342,34 @@
     background: $border-dark;
   }
 
+  .sidebar-ns-trigger {
+    border-color: $gray-600;
+    color: $body-color-dark;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16'><path fill='none' stroke='%23adb5bd' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6l4 4 4-4'/></svg>");
+
+    &:hover {
+      border-color: $gray-500;
+    }
+  }
+
+  .sidebar-ns-trigger--open {
+    border-color: $link-color-dark;
+  }
+
+  .sidebar-ns-panel {
+    background: $body-overlay-dark;
+    border-color: $border-dark;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .sidebar-ns-option {
+    color: $body-color-dark;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+
   .docs-links h3:not(:first-child) {
     border-top: 1px solid $border-dark;
   }
