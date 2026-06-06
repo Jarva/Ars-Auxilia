@@ -51,8 +51,10 @@ body .toggle-light {
   display: none;
 }
 
-.collapsible-sidebar {
-  margin: 2.125rem 0;
+@include media-breakpoint-up(lg) {
+  .collapsible-sidebar {
+    margin: 2.125rem 0;
+  }
 }
 
 .btn-toggle {
