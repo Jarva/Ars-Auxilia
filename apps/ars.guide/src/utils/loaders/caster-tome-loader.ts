@@ -1,7 +1,7 @@
-import { env } from "cloudflare:workers";
 import type { Loader } from "astro/loaders";
 
-const TOME_PREFIX = "recipes/ars_nouveau/tomes/";
+const ASSETS_BASE_URL = "https://assets.ars.guide";
+const TOME_MANIFEST_URL = `${ASSETS_BASE_URL}/tome.json`;
 
 export interface CasterTome {
   type: string;
@@ -21,11 +21,11 @@ export interface CasterTome {
   };
 }
 
-const getTomeId = (key: string) =>
-  key
+const getTomeId = (path: string) =>
+  path
     .split("/")
     .pop()
-    ?.replace(/\.json$/, "") ?? key;
+    ?.replace(/\.json$/, "") ?? path;
 
 export function casterTomeLoader() {
   return {
@@ -33,25 +33,30 @@ export function casterTomeLoader() {
     load: async ({ store, parseData }) => {
       store.clear();
 
-      const listed = await env.GEN_ASSETS.list({ prefix: TOME_PREFIX });
-      const keys = listed.objects
-        .map((obj) => obj.key)
-        .filter((key) => key.endsWith(".json"));
+      const manifestRes = await fetch(TOME_MANIFEST_URL);
+      if (!manifestRes.ok) {
+        throw new Error(
+          `Failed to fetch tome manifest: ${manifestRes.status} ${manifestRes.statusText}`,
+        );
+      }
+      const tomePaths = (await manifestRes.json()) as string[];
 
-      for (const key of keys) {
-        const object = await env.GEN_ASSETS.get(key);
-        if (!object) {
-          console.warn(`${key} not found in R2`);
+      for (const tomePath of tomePaths) {
+        const tomeRes = await fetch(`${ASSETS_BASE_URL}/${tomePath}`);
+        if (!tomeRes.ok) {
+          console.warn(
+            `Failed to fetch ${tomePath}: ${tomeRes.status} ${tomeRes.statusText}`,
+          );
           continue;
         }
 
-        const tome = (await object.json()) as CasterTome;
+        const tome = (await tomeRes.json()) as CasterTome;
         if (tome.name.length <= 0) {
-          console.warn(`${key} has a 0-length name`);
+          console.warn(`${tomePath} has a 0-length name`);
           continue;
         }
 
-        const id = getTomeId(key);
+        const id = getTomeId(tomePath);
         const data = await parseData({
           id,
           data: tome as unknown as Record<string, unknown>,
